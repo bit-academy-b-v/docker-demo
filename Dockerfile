@@ -1,3 +1,11 @@
-FROM ubuntu:20.04
+FROM node:14
 
-CMD ["echo", "Hello ROC Zuidoost!"]
+WORKDIR /usr/src/app
+
+COPY package*.json app.js ./
+
+RUN npm install
+
+EXPOSE 3000
+
+CMD ["node", "app.js"]
