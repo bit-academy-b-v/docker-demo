@@ -1,11 +1,15 @@
-FROM node:14
+FROM node:16-alpine
 
-WORKDIR /usr/src/app
+WORKDIR site
 
-COPY package*.json app.js ./
+RUN wget https://js-dos.com/6.22/current/js-dos.js
+RUN wget https://js-dos.com/6.22/current/wdosbox.js
+RUN wget https://js-dos.com/6.22/current/wdosbox.wasm.js
 
-RUN npm install
+RUN npm install -g serve
 
-EXPOSE 3000
+COPY index.html .
 
-CMD ["node", "app.js"]
+COPY game.zip .
+
+ENTRYPOINT npx serve -l tcp://0.0.0.0:8000
